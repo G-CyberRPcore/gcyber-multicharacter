@@ -102,7 +102,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Event from CyberMP Client: receive character list
 if (window.mp && mp.events) {
-  mp.events.add('g-cyber:characters:receive', (jsonStr) => {
+  const onEvent = (mp.events.on || mp.events.add).bind(mp.events);
+
+  onEvent('g-cyber:characters:receive', (jsonStr) => {
     try {
       charactersList = typeof jsonStr === 'string' ? JSON.parse(jsonStr) : jsonStr;
       renderSlots();
@@ -111,7 +113,7 @@ if (window.mp && mp.events) {
     }
   });
 
-  mp.events.add('g-cyber:characters:loaded', () => {
+  onEvent('g-cyber:characters:loaded', () => {
     // Hide multicharacter UI when spawned in world
     document.getElementById('view-multicharacter').classList.remove('active');
     document.getElementById('view-creator').classList.remove('active');
