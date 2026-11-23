@@ -16,8 +16,8 @@ An enterprise-grade character selection and creation system designed specificall
 
 ## Installation
 1. Place `gcyber-multicharacter` inside your server's `resources/` directory:
-   ```
-   D:\cybermpserver\resources\gcyber-multicharacter\
+   ```text
+   resources/gcyber-multicharacter/
    ```
 2. Add `gcyber-multicharacter` to your `server.toml`:
    ```toml
