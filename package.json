@@ -1,0 +1,18 @@
+{
+  "name": "@g-cyberrpcore/gcyber-multicharacter",
+  "version": "1.0.0",
+  "description": "Modular Multicharacter & Native 3D Character Creator Resource for G-CyberRPcore / CyberMP",
+  "main": "server.js",
+  "scripts": {
+    "test": "node --check server.js && node --check client.js && node --check config.js"
+  },
+  "keywords": [
+    "cyberpunk2077",
+    "cybermp",
+    "multicharacter",
+    "character-creator",
+    "g-cyberrpcore"
+  ],
+  "author": "G-CyberRPcore Team",
+  "license": "MIT"
+}

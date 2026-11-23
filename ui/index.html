@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>G-CyberRP - Citizen Identity Repository</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:ital,wght@0,400;0,600;0,700;1,700&family=Rajdhani:wght@500;600;700&family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- Fullscreen Animated Cyber-Grid Backdrop -->
+  <div id="fullscreen-backdrop" class="fullscreen-backdrop">
+    <canvas id="cyber-canvas"></canvas>
+    <div class="vignette-overlay"></div>
+    <div class="scanlines"></div>
+  </div>
+
+  <!-- Toast Notification Stream -->
+  <div id="toast-container" class="toast-container"></div>
+
+  <!-- =====================================================================
+       VIEW 1: MULTICHARACTER SELECTION (ROSTER)
+       ===================================================================== -->
+  <div id="view-multicharacter" class="view-panel active">
+    <div class="multichar-wrapper">
+      <header class="multichar-header">
+        <div class="brand-box">
+          <div class="brand-logo-icon"></div>
+          <div>
+            <div class="brand-sub">CITIZEN IDENTITY REPOSITORY // NC-BIOMETRICS</div>
+            <h1 class="brand-title">SELECT CITIZEN // IDENTITY ROSTER</h1>
+          </div>
+        </div>
+        <div class="header-badges">
+          <span class="badge badge-cyan">SLOTS: 4</span>
+          <span class="badge badge-green">SYSTEM: ONLINE</span>
+        </div>
+      </header>
+
+      <div class="characters-grid" id="characters-slots-grid">
+        <!-- 4 Slots generated dynamically by script.js -->
+      </div>
+    </div>
+  </div>
+
+  <!-- =====================================================================
+       VIEW 2: CHARACTER & BIOMETRICS CREATOR
+       ===================================================================== -->
+  <div id="view-creator" class="view-panel">
+    <!-- Floating Sidebar Toggle Button -->
+    <button type="button" id="btn-toggle-sidebar" class="sidebar-toggle-btn" title="Toggle Sidebar">
+      <span class="toggle-icon">◀</span>
+      <span id="toggle-label">HIDE SERVER PANEL</span>
+    </button>
+
+    <div class="creator-wrapper">
+      <!-- Left Panel: Form & Native Customizer Controls -->
+      <div class="creator-sidebar" id="creator-sidebar">
+        <header class="creator-header">
+          <span class="brand-sub">BIOMETRIC DNA ENCODING</span>
+          <h2>CITIZEN REGISTRATION</h2>
+        </header>
+
+        <!-- 3D Native Creator Launcher -->
+        <div class="native-launcher-box">
+          <button type="button" class="btn-native-launcher" id="btn-open-native-creator">
+            <span class="btn-icon">🎮</span>
+            <div class="btn-desc">
+              <strong>LAUNCH ORIGINAL 3D CHARACTER CREATOR</strong>
+              <span>Switches to Cyberpunk 2077's native character creation scenario (full 360° puppet, face morphs, chrome & outfits).</span>
+            </div>
+          </button>
+        </div>
+
+        <form id="form-create-character" class="creator-form">
+          <div class="form-group">
+            <label>FIRST NAME</label>
+            <input type="text" id="input-firstname" required placeholder="e.g. Valerie, Vincent" autocomplete="off">
+          </div>
+
+          <div class="form-group">
+            <label>LAST NAME</label>
+            <input type="text" id="input-lastname" required placeholder="e.g. Street, Morgan" autocomplete="off">
+          </div>
+
+          <div class="form-row">
+            <div class="form-group flex-1">
+              <label>DATE OF BIRTH</label>
+              <input type="date" id="input-birthdate" value="2054-10-12" required>
+            </div>
+            <div class="form-group flex-1">
+              <label>GENDER</label>
+              <select id="select-gender">
+                <option value="female">Female (Body 01)</option>
+                <option value="male">Male (Body 02)</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>LIFE PATH // ORIGIN</label>
+            <div class="lifepath-selector">
+              <label class="lifepath-option selected">
+                <input type="radio" name="lifepath" value="streetkid" checked>
+                <div class="lifepath-card">
+                  <strong>STREET KID</strong>
+                  <span>Born in Watson alleys</span>
+                </div>
+              </label>
+              <label class="lifepath-option">
+                <input type="radio" name="lifepath" value="nomad">
+                <div class="lifepath-card">
+                  <strong>NOMAD</strong>
+                  <span>Wasteland drifter</span>
+                </div>
+              </label>
+              <label class="lifepath-option">
+                <input type="radio" name="lifepath" value="corpo">
+                <div class="lifepath-card">
+                  <strong>CORPO</strong>
+                  <span>Arasaka executive</span>
+                </div>
+              </label>
+            </div>
+          </div>
+
+          <div class="creator-actions">
+            <button type="button" class="btn btn-secondary" id="btn-cancel-creator">CANCEL</button>
+            <button type="submit" class="btn btn-primary" id="btn-confirm-create">CONFIRM & ENTER NIGHT CITY</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- =====================================================================
+       IN-GAME CONFIRMATION MODAL (Identity Deletion)
+       ===================================================================== -->
+  <div id="modal-delete" class="modal-overlay" style="display:none;">
+    <div class="modal-card">
+      <header class="modal-header">
+        <span class="modal-warning-icon">⚠️</span>
+        <div>
+          <span class="modal-sub">TERMINATION PROTOCOL // CRITICAL DELETION</span>
+          <h3>PURGE CITIZEN IDENTITY</h3>
+        </div>
+      </header>
+
+      <div class="modal-body">
+        <p>Are you sure you want to permanently erase citizen record <strong id="modal-char-name" class="text-yellow"></strong>?</p>
+        <div class="modal-info-box">
+          <div class="modal-row">
+            <span>CITIZEN ID:</span>
+            <strong id="modal-char-id" class="text-cyan">NC-000000</strong>
+          </div>
+          <div class="modal-row">
+            <span>STATUS:</span>
+            <span class="text-red">PERMANENT DELETION</span>
+          </div>
+        </div>
+        <p class="modal-footnote">All assets, cash, bank accounts, inventory, vehicles and apartments associated with this character will be erased from the database.</p>
+      </div>
+
+      <footer class="modal-footer">
+        <button type="button" class="btn btn-secondary" id="btn-modal-cancel">CANCEL [ESC]</button>
+        <button type="button" class="btn btn-danger" id="btn-modal-confirm">CONFIRM TERMINATION</button>
+      </footer>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
